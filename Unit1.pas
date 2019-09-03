@@ -10,7 +10,7 @@ uses
 var
   g_strResult : string;
 
-function RegExprMatchStdcall(szText: pchar; szPatten : pchar) : pchar; stdcall;
+function RegExprMatchStdcall(szText: pchar; szPatten : pchar; iGroup:integer) : pchar; stdcall;
 var
   RegExpr: TRegExpr;
   ret : string;
@@ -23,7 +23,7 @@ begin
   RegExpr.Expression := szPatten;
   if RegExpr.Exec(szText) then
   begin
-     ret := RegExpr.Match[0];
+     ret := RegExpr.Match[iGroup];
      i := 0;
      //while (i >= 0) and (i < 1) do
      //   tmp := RegExpr.Match[i];
@@ -45,11 +45,11 @@ begin
   result := pchar(g_strResult);
 end;
 
-function RegExprMatchPascal(szText: pchar; szPatten : pchar) : pchar; pascal;
+function RegExprMatchPascal(szText: pchar; szPatten : pchar; iGroup:integer) : pchar; pascal;
 var
   RegExpr: TRegExpr;
 begin
-  result := RegExprMatchStdcall(szText, szPatten);
+  result := RegExprMatchStdcall(szText, szPatten, iGroup);
 end;
 
 exports
